@@ -1,0 +1,61 @@
+services:
+  client:
+    container_name: md-hub-client
+    environment:
+      - ENV=${ENV}
+    build:
+      context: .
+      dockerfile: ./client/.docker/Dockerfile
+      args:
+        APP_PATH: /app_root/client
+    volumes:
+      - ./:/app_root
+    working_dir: /app_root/client
+    command: /bin/sh -l
+    tty: true
+    stdin_open: true
+    mem_limit: 2g
+    ports:
+      - 5173:5173
+  api:
+    container_name: md-hub-api
+    environment:
+      - ENV=${ENV}
+    build:
+      context: .
+      dockerfile: ./api/.docker/Dockerfile
+      args:
+        APP_PATH: /app_root/api
+    volumes:
+      - ./:/app_root
+    working_dir: /app_root/api
+    command: /bin/sh -l
+    tty: true
+    stdin_open: true
+    mem_limit: 2g
+    ports:
+      - 8088:8088
+  api-mock:
+    container_name: md-hub-api-mock
+    image: stoplight/prism:4
+    command: mock -p 4011 -h 0.0.0.0 /mnt/swagger-api.yml
+    ports:
+      - 4011:4011
+    volumes:
+      - ./client/app/.swagger:/mnt
+  datastore-mock:
+    container_name: md-hub-datastore-mock
+    build:
+      context: .
+      dockerfile: ./datastore/.docker/Dockerfile
+    ports:
+      - 18081:8081
+    volumes:
+      - ./datastore/.data:/datastore/.data
+    environment:
+      PROJECT_ID: "md-hub"
+      LISTEN_ADDRESS: 0.0.0.0:8081
+    command: /bin/sh -l
+networks:
+  hr-hub-network:
+    driver: bridge
