@@ -13,3 +13,5 @@ steps:
       - "asia-northeast1"
       - "--port"
       - "8088"
+options:
+  logging: "NONE"
