@@ -22,3 +22,5 @@ steps:
       ]
 images:
   - "asia-northeast1-docker.pkg.dev/md-docs-dev/md-docs-dev/api:latest"
+options:
+  logging: "NONE"
