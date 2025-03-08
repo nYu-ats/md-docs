@@ -1,0 +1,26 @@
+# TODO 固定値の設定
+steps:
+  # Build the container image
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "build",
+        "-f",
+        "./api/.docker/Dockerfile.dev",
+        "--build-arg",
+        "APP_PATH=/app_root/api",
+        "-t",
+        "asia-northeast1-docker.pkg.dev/md-docs-dev/md-docs-dev/api:latest",
+        ".",
+      ]
+  # Push the container image to Container Registry
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "push",
+        "asia-northeast1-docker.pkg.dev/md-docs-dev/md-docs-dev/api:latest",
+      ]
+images:
+  - "asia-northeast1-docker.pkg.dev/md-docs-dev/md-docs-dev/api:latest"
+options:
+  logging: "NONE"

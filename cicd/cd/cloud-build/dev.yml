@@ -1,0 +1,15 @@
+# TODO 固定値の設定
+steps:
+  # Deploy container image to Cloud Run
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    entrypoint: gcloud
+    args:
+      - "run"
+      - "deploy"
+      - "md-docs-api-dev"
+      - "--image"
+      - "asia-northeast1-docker.pkg.dev/md-docs-dev/md-docs-dev/api:latest"
+      - "--region"
+      - "asia-northeast1"
+      - "--port"
+      - "8088"
