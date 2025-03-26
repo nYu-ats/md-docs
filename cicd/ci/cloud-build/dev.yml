@@ -1,7 +1,9 @@
 # TODO 固定値の設定
 steps:
-  # Build the container image
+  # Build the api container image
   - name: "gcr.io/cloud-builders/docker"
+    id: "api-build"
+    waitFor: ["-"]
     args:
       [
         "build",
@@ -13,14 +15,39 @@ steps:
         "asia-northeast1-docker.pkg.dev/md-docs-dev/md-docs-dev/api:latest",
         ".",
       ]
-  # Push the container image to Container Registry
+  # Build the frontend container image
   - name: "gcr.io/cloud-builders/docker"
+    id: "client-build"
+    waitFor: ["-"]
+    args:
+      [
+        "build",
+        "-f",
+        "./client/.docker/Dockerfile.dev",
+        "--build-arg",
+        "APP_PATH=/app_root/client",
+        "-t",
+        "asia-northeast1-docker.pkg.dev/md-docs-dev/md-docs-dev/api:latest",
+        ".",
+      ]
+  # Push the api container image to Container Registry
+  - name: "gcr.io/cloud-builders/docker"
+    waitFor: ["api-build"]
     args:
       [
         "push",
         "asia-northeast1-docker.pkg.dev/md-docs-dev/md-docs-dev/api:latest",
       ]
+  # Push the client container image to Container Registry
+  - name: "gcr.io/cloud-builders/docker"
+    waitFor: ["client-build"]
+    args:
+      [
+        "push",
+        "asia-northeast1-docker.pkg.dev/md-docs-dev/md-docs-dev/client:latest",
+      ]
 images:
   - "asia-northeast1-docker.pkg.dev/md-docs-dev/md-docs-dev/api:latest"
+  - "asia-northeast1-docker.pkg.dev/md-docs-dev/md-docs-dev/client:latest"
 options:
   logging: "NONE"
