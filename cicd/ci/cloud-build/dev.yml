@@ -31,7 +31,6 @@ steps:
   #     ]
   # Push the api container image to Container Registry
   - name: "gcr.io/cloud-builders/docker"
-    waitFor: ["api-build"]
     args:
       [
         "push",
