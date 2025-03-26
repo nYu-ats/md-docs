@@ -4,8 +4,7 @@ ARG APP_PATH
 WORKDIR ${APP_PATH}/app
 
 COPY ./client/ ${APP_PATH}
-RUN npm run build
 
 EXPOSE 3000
 
-CMD HOSTNAME="0.0.0.0" node server.js
+CMD ["npm run build", "HOSTNAME="0.0.0.0" node server.js"]
