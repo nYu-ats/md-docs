@@ -27,7 +27,7 @@ steps:
         "--build-arg",
         "APP_PATH=/app_root/client",
         "-t",
-        "asia-northeast1-docker.pkg.dev/md-docs-dev/md-docs-dev/api:latest",
+        "asia-northeast1-docker.pkg.dev/md-docs-dev/md-docs-dev/client:latest",
         ".",
       ]
   # Push the api container image to Container Registry
