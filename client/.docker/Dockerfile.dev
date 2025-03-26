@@ -3,10 +3,10 @@ FROM node:20-slim
 ARG APP_PATH
 WORKDIR ${APP_PATH}
 
-COPY ./client ${APP_PATH}
+COPY ./client/ ${APP_PATH}
 RUN cd ./app
 RUN npm run build
 
 EXPOSE 3000
 
-ENTRYPOINT ["HOSTNAME='0.0.0.0'", "node server.js"]
+CMD HOSTNAME="0.0.0.0" node server.js
