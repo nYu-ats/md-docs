@@ -1,6 +1,6 @@
 # TODO 固定値の設定
 steps:
-  # Deploy container image to Cloud Run
+  # Deploy api container image to Cloud Run
   - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
     entrypoint: gcloud
     args:
@@ -13,3 +13,25 @@ steps:
       - "asia-northeast1"
       - "--port"
       - "8088"
+      - "--allow-unauthenticated"
+      - "--ingress"
+      - "internal-and-cloud-load-balancing"
+
+  # Deploy client container image to Cloud Run
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    entrypoint: gcloud
+    args:
+      - "run"
+      - "deploy"
+      - "md-docs-client-dev"
+      - "--image"
+      - "asia-northeast1-docker.pkg.dev/md-docs-dev/md-docs-dev/client:latest"
+      - "--region"
+      - "asia-northeast1"
+      - "--port"
+      - "3000"
+      - "--allow-unauthenticated"
+      - "--ingress"
+      - "internal-and-cloud-load-balancing"
+options:
+  logging: "NONE"
