@@ -2,7 +2,6 @@
 steps:
   # Build the api container image
   - name: "gcr.io/cloud-builders/docker"
-    id: "api-build"
     args:
       [
         "build",
@@ -46,6 +45,5 @@ steps:
   #     ]
 images:
   - "asia-northeast1-docker.pkg.dev/md-docs-dev/md-docs-dev/api:latest"
-  - "asia-northeast1-docker.pkg.dev/md-docs-dev/md-docs-dev/client:latest"
 options:
   logging: "NONE"
