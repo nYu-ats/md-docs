@@ -50,4 +50,4 @@ steps:
         "asia-northeast1-docker.pkg.dev/md-docs-dev/md-docs-dev/client:latest",
       ]
 options:
-  logging: "NONE"
+  logging: "CLOUD_LOGGING_ONLY"
