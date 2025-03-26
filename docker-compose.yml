@@ -5,7 +5,7 @@ services:
       - ENV=${ENV}
     build:
       context: .
-      dockerfile: ./client/.docker/Dockerfile
+      dockerfile: ./client/.docker/Dockerfile.local
       args:
         APP_PATH: /app_root/client
     volumes:
@@ -23,7 +23,7 @@ services:
       - ENV=${ENV}
     build:
       context: .
-      dockerfile: ./api/.docker/Dockerfile
+      dockerfile: ./api/.docker/Dockerfile.local
       args:
         APP_PATH: /app_root/api
     volumes:
@@ -47,7 +47,7 @@ services:
     container_name: md-hub-datastore-mock
     build:
       context: .
-      dockerfile: ./datastore/.docker/Dockerfile
+      dockerfile: ./datastore/.docker/Dockerfile.local
     ports:
       - 18081:8081
     volumes:
