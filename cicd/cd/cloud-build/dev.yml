@@ -13,9 +13,9 @@ steps:
       - "asia-northeast1"
       - "--port"
       - "8088"
-      - "--allow-unauthenticated"
-      - "--ingress"
-      - "internal-and-cloud-load-balancing"
+      # - "--allow-unauthenticated"
+      # - "--ingress"
+      # - "internal-and-cloud-load-balancing"
 
   # Deploy client container image to Cloud Run
   - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
