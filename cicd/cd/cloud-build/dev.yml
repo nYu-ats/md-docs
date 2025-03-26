@@ -33,3 +33,5 @@ steps:
       - "--allow-unauthenticated"
       - "--ingress"
       - "internal-and-cloud-load-balancing"
+options:
+  logging: "CLOUD_LOGGING_ONLY"
