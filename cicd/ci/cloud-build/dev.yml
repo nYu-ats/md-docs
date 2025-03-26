@@ -14,21 +14,22 @@ steps:
         "asia-northeast1-docker.pkg.dev/md-docs-dev/md-docs-dev/api:latest",
         ".",
       ]
+
   # Build the frontend container image
-  # - name: "gcr.io/cloud-builders/docker"
-  #   id: "client-build"
-  #   waitFor: ["-"]
-  #   args:
-  #     [
-  #       "build",
-  #       "-f",
-  #       "./client/.docker/Dockerfile.dev",
-  #       "--build-arg",
-  #       "APP_PATH=/app_root/client",
-  #       "-t",
-  #       "asia-northeast1-docker.pkg.dev/md-docs-dev/md-docs-dev/client:latest",
-  #       ".",
-  #     ]
+  - name: "gcr.io/cloud-builders/docker"
+    id: "client-build"
+    args:
+      [
+        "build",
+        "-f",
+        "./client/.docker/Dockerfile.dev",
+        "--build-arg",
+        "APP_PATH=/app_root/client",
+        "-t",
+        "asia-northeast1-docker.pkg.dev/md-docs-dev/md-docs-dev/client:latest",
+        ".",
+      ]
+
   # Push the api container image to Container Registry
   - name: "gcr.io/cloud-builders/docker"
     waitFor: ["api-build"]
@@ -37,13 +38,14 @@ steps:
         "push",
         "asia-northeast1-docker.pkg.dev/md-docs-dev/md-docs-dev/api:latest",
       ]
+
   # Push the client container image to Container Registry
-  # - name: "gcr.io/cloud-builders/docker"
-  #   waitFor: ["client-build"]
-  #   args:
-  #     [
-  #       "push",
-  #       "asia-northeast1-docker.pkg.dev/md-docs-dev/md-docs-dev/client:latest",
-  #     ]
+  - name: "gcr.io/cloud-builders/docker"
+    waitFor: ["client-build"]
+    args:
+      [
+        "push",
+        "asia-northeast1-docker.pkg.dev/md-docs-dev/md-docs-dev/client:latest",
+      ]
 options:
   logging: "NONE"
