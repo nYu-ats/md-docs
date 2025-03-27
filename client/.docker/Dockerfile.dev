@@ -9,4 +9,4 @@ RUN npm run build
 
 EXPOSE 3000
 
-CMD ["npm run build", "HOSTNAME="0.0.0.0" node server.js"]
+CMD ["HOSTNAME='0.0.0.0'", "node server.js"]
