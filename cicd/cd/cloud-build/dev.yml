@@ -2,6 +2,7 @@
 steps:
   # Deploy api container image to Cloud Run
   - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    waitFor: ["-"]
     entrypoint: gcloud
     args:
       - "run"
@@ -16,9 +17,9 @@ steps:
       - "--allow-unauthenticated"
       - "--ingress"
       - "internal-and-cloud-load-balancing"
-
   # Deploy client container image to Cloud Run
   - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    waitFor: ["-"]
     entrypoint: gcloud
     args:
       - "run"
@@ -33,5 +34,6 @@ steps:
       - "--allow-unauthenticated"
       - "--ingress"
       - "internal-and-cloud-load-balancing"
+
 options:
   logging: "CLOUD_LOGGING_ONLY"
