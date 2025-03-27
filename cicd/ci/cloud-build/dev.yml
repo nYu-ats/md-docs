@@ -15,7 +15,6 @@ steps:
         "asia-northeast1-docker.pkg.dev/md-docs-dev/md-docs-dev/api:latest",
         ".",
       ]
-
   # Build the frontend container image
   - name: "gcr.io/cloud-builders/docker"
     id: "client-build"
@@ -31,7 +30,6 @@ steps:
         "asia-northeast1-docker.pkg.dev/md-docs-dev/md-docs-dev/client:latest",
         ".",
       ]
-
   # Push the api container image to Container Registry
   - name: "gcr.io/cloud-builders/docker"
     waitFor: ["api-build"]
@@ -40,7 +38,6 @@ steps:
         "push",
         "asia-northeast1-docker.pkg.dev/md-docs-dev/md-docs-dev/api:latest",
       ]
-
   # Push the client container image to Container Registry
   - name: "gcr.io/cloud-builders/docker"
     waitFor: ["client-build"]
@@ -49,5 +46,6 @@ steps:
         "push",
         "asia-northeast1-docker.pkg.dev/md-docs-dev/md-docs-dev/client:latest",
       ]
+
 options:
   logging: "CLOUD_LOGGING_ONLY"
