@@ -44,3 +44,8 @@ module "elb" {
   project              = var.project
   domain_name          = module.domain.domain_name
 }
+
+module "cicd" {
+  source  = "../../../modules/gcp/cicd"
+  project = var.project
+}
