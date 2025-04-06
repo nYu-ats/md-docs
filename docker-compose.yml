@@ -1,6 +1,6 @@
 services:
   client:
-    container_name: md-hub-client
+    container_name: md-docs-client
     environment:
       - ENV=${ENV}
     build:
@@ -18,7 +18,7 @@ services:
     ports:
       - 5173:5173
   api:
-    container_name: md-hub-api
+    container_name: md-docs-api
     environment:
       - ENV=${ENV}
     build:
@@ -36,15 +36,17 @@ services:
     ports:
       - 8088:8088
   api-mock:
-    container_name: md-hub-api-mock
-    image: stoplight/prism:4
+    container_name: md-docs-api-mock
+    platform: linux/amd64
+    image: stoplight/prism:latest
     command: mock -p 4011 -h 0.0.0.0 /mnt/swagger-api.yml
     ports:
       - 4011:4011
     volumes:
-      - ./client/app/.swagger:/mnt
+      - ./swagger:/mnt
   datastore-mock:
-    container_name: md-hub-datastore-mock
+    container_name: md-docs-datastore-mock
+    platform: linux/amd64
     build:
       context: .
       dockerfile: ./datastore/.docker/Dockerfile.local
@@ -53,7 +55,7 @@ services:
     volumes:
       - ./datastore/.data:/datastore/.data
     environment:
-      PROJECT_ID: "md-hub"
+      PROJECT_ID: "md-docs"
       LISTEN_ADDRESS: 0.0.0.0:8081
     command: /bin/sh -l
 networks:
